@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culqi Master Suite ✅</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --input-bg: #1e1e1e;
+            --text: #e0e0e0;
+            --text-dim: #888;
+            --border: #222;
+            --btn-border: #ffffff;
+            --accent: #2196F3;
+            --success: #00e676;
+            --warning: #ffd600;
+            --danger: #ff1744;
+            --gap: 12px;
+            --radius: 12px;
+            --main-width: 650px;
+        }
+
+        body.light-mode {
+            --bg: #ffffff;
+            --surface: #f7f7f7;
+            --input-bg: #f0f0f0;
+            --text: #1a1a1a;
+            --text-dim: #555;
+            --border: #ddd;
+            --btn-border: #808080;
+            --accent: #1565C0;
+            --success: #1b5e20;
+            --warning: #827717;
+            --danger: #c62828;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        
+        body { 
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg); 
+            color: var(--text); 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            min-height: 100vh; 
+            /* Se redujo el padding general para optimizar espacio en ventanas pequeñas */
+            padding: 20px 10px; 
+            transition: all 0.3s ease;
+        }
+
+        /* NAVEGACIÓN DE BURBUJAS OPTIMIZADA (MÁS DELGADA) */
+        .nav-bubbles {
+            display: flex;
+            gap: 4px;
+            background: var(--surface);
+            padding: 5px; /* Padding reducido drásticamente */
+            border-radius: 30px; /* Radio ajustado a la nueva altura */
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+            position: sticky;
+            top: 10px;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            max-width: 100%;
+            overflow-x: auto; /* Permite scroll horizontal si la pantalla es extrema */
+            -ms-overflow-style: none;  /* Ocultar barra en IE/Edge */
+            scrollbar-width: none;  /* Ocultar barra en Firefox */
+        }
+
+        .nav-bubbles::-webkit-scrollbar {
+            display: none; /* Ocultar barra en Chrome/Safari */
+        }
+
+        .bubble {
+            padding: 7px 12px; /* Más compacto vertical y horizontalmente */
+            border-radius: 20px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text-dim);
+            font-size: 0.65rem; /* Tamaño de letra sutilmente menor */
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap; /* Evita que el texto salte a doble línea */
+        }
+
+        .bubble.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3);
+        }
+
+        .bubble:hover:not(.active) {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* CONTENEDORES DE HERRAMIENTAS */
+        .tool-container {
+            display: none;
+            flex-direction: column;
+            gap: var(--gap);
+            width: 100%;
+            max-width: var(--main-width);
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tool-container.active { display: flex; }
+
+        /* ESTILOS COMPARTIDOS (CARDS, BOTONES, ETC) */
+        .card { 
+            background: var(--surface); 
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px; 
+            display: flex; 
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        h2 { 
+            text-align: center; 
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            user-select: none;
+        }
+
+        .cismo-label {
+            font-family: 'Consolas', monospace;
+            font-size: 0.65rem;
+            text-align: center;
+            background: var(--border);
+            padding: 6px;
+            border-radius: 6px;
+            color: var(--warning);
+            text-transform: uppercase;
+        }
+
+        /* --- ESTILOS ESPECÍFICOS: NOTAS --- */
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            background: rgba(128,128,128,0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.85rem;
+            resize: vertical;
+        }
+        .action-bar { display: flex; gap: 5px; }
+        .mini-btn {
+            background: transparent; border: 1px solid var(--btn-border);
+            color: var(--text); padding: 5px 10px; border-radius: 5px;
+            font-size: 0.6rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            transition: 0.2s;
+        }
+        .mini-btn:hover { background: var(--border); }
+
+        /* --- ESTILOS ESPECÍFICOS: SOPORTE --- */
+        .info-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 8px; }
+        .info-item { background: rgba(128,128,128,0.05); padding: 10px; border-radius: 8px; border: 1px solid var(--border); text-align: center; }
+        .label-mini { font-size: 0.55rem; font-weight: bold; color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 4px; }
+        .sla-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        .sla-table td { padding: 8px; border-bottom: 1px solid var(--border); }
+        .val-tabs { display: flex; gap: 5px; }
+        .tab-btn {
+            flex: 1; background: transparent; border: 1px solid var(--btn-border);
+            color: var(--text); padding: 10px; border-radius: 8px;
+            font-size: 0.65rem; font-weight: bold; cursor: pointer; text-transform: uppercase;
+            transition: 0.2s;
+        }
+        .tab-btn.active { border-color: var(--accent); color: var(--accent); border-width: 2px; }
+        .val-content { background: rgba(128,128,128,0.02); border: 1px solid var(--border); border-radius: 8px; padding: 15px; font-size: 0.8rem; display: none; }
+        .val-content.active { display: block; }
+        .step { margin-bottom: 6px; padding-left: 15px; position: relative; }
+        .step::before { content: "•"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+
+        /* --- ESTILOS ESPECÍFICOS: TIPIFICADOR --- */
+        .category-title { 
+            font-size: 0.75rem; font-weight: bold; color: var(--text-dim); 
+            text-transform: uppercase; margin: 15px 0 5px 0; display: flex; align-items: center; gap: 10px;
+        }
+        .category-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+        .grid-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+        .btn-tip {
+            background: rgba(128,128,128,0.05); border: 1px solid var(--border);
+            color: var(--text); padding: 14px; border-radius: 8px;
+            cursor: pointer; font-size: 0.85rem; text-align: left;
+            display: flex; justify-content: space-between; align-items: center; transition: 0.3s;
+        }
+        .cat-consulta:hover { border-color: var(--accent); background: rgba(33, 150, 243, 0.1); }
+        .cat-solicitud:hover { border-color: var(--success); background: rgba(0, 230, 118, 0.1); }
+        .cat-reclamo:hover { border-color: var(--warning); background: rgba(255, 214, 0, 0.1); }
+        .cat-incidencia:hover { border-color: var(--danger); background: rgba(255, 23, 68, 0.1); }
+
+        /* --- ESTILOS ESPECÍFICOS: CALCULADORA --- */
+        .f-row { display: flex; gap: 10px; }
+        .f-col { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+        
+        label, .f-label { 
+            font-size: 0.65rem; 
+            font-weight: bold; 
+            color: var(--text-dim); 
+            text-transform: uppercase; 
+        }
+
+        input, select { 
+            padding: 12px; 
+            border: 1px solid var(--border); 
+            border-radius: 8px; 
+            background: var(--input-bg); 
+            color: var(--text); 
+            font-size: 0.9rem; 
+            width: 100%;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        input[type="number"] {
+            font-family: 'Consolas', monospace;
+            font-weight: bold;
+        }
+
+        input:focus, select:focus { border-color: var(--accent); }
+        
+        select option {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .results-box {
+            background: rgba(128,128,128,0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-left: 4px solid var(--success);
+        }
+
+        .result-item { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+        .val-desc { font-weight: bold; color: var(--text); font-family: 'Consolas', monospace; }
+        .val-total { font-size: 1.3rem; font-weight: bold; color: var(--success); font-family: 'Consolas', monospace; }
+
+        .speech-container { margin-top: 5px; }
+        
+        .speech-text { 
+            font-size: 0.85rem; color: var(--text); line-height: 1.6; 
+            background: rgba(33, 150, 243, 0.05); border: 1px solid var(--accent); 
+            padding: 15px; border-radius: 8px; cursor: pointer; transition: 0.2s;
+        }
+        .speech-text:hover { border-color: var(--success); }
+        .highlight { color: var(--accent); font-weight: bold; } 
+
+        .btn-main {
+            background: var(--success); color: black; border: none; padding: 14px; 
+            border-radius: 8px; font-weight: bold; text-transform: uppercase; 
+            cursor: pointer; font-size: 0.8rem; transition: 0.2s; margin-top: 5px;
+        }
+        .btn-main:active { transform: scale(0.98); }
+        .hidden { display: none !important; }
+
+        /* ALERTAS / FOOTERS */
+        .note-alert {
+            background: rgba(33, 150, 243, 0.08); border-left: 3px solid var(--accent);
+            padding: 12px; font-size: 0.7rem; color: var(--text-dim); border-radius: 0 8px 8px 0;
+        }
+
+        #toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: var(--success); color: white; padding: 10px 25px;
+            border-radius: 30px; font-weight: bold; font-size: 0.8rem;
+            display: none; z-index: 2000; box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toast">Copiado con éxito</div>
+
+    <nav class="nav-bubbles">
+        <button class="bubble" onclick="switchTool('notas', this)">Notas</button>
+        <button class="bubble" onclick="switchTool('soporte', this)">Soporte</button>
+        <button class="bubble" onclick="switchTool('tipificador', this)">Tipificador</button>
+        <button class="bubble active" onclick="switchTool('calculadora', this)">Calculadora</button>
+    </nav>
+
+    <section id="tool-notas" class="tool-container">
+        <div class="card">
+            <h2 onclick="toggleTheme()" title="Cambiar a Modo Claro/Oscuro">Editor de Gestión ✅</h2>
+            <div class="cismo-label">Asistente de Redacción y Ortografía</div>
+        </div>
+        <div class="card" style="border-left: 4px solid var(--danger);">
+            <div class="note-header" style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                <span class="label-mini" style="color: var(--danger); font-size:0.6rem; font-weight:bold;">🚨 IMPORTANTE / PRIORIDAD</span>
+                <div class="action-bar">
+                    <button class="mini-btn" onclick="copyNote('imp')">Copiar</button>
+                    <button class="mini-btn" onclick="clearNote('imp')">Limpiar</button>
+                </div>
+            </div>
+            <textarea id="note-imp" spellcheck="true" placeholder="Escribe aquí los pendientes críticos..."></textarea>
+        </div>
+        <div class="card" style="border-left: 4px solid var(--success);">
+            <div class="note-header" style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                <span class="label-mini" style="color: var(--success); font-size:0.6rem; font-weight:bold;">📝 NOTAS BÁSICAS / PLANTILLAS</span>
+                <div class="action-bar">
+                    <button class="mini-btn" onclick="copyNote('bas')">Copiar</button>
+                    <button class="mini-btn" onclick="clearNote('bas')">Limpiar</button>
+                </div>
+            </div>
+            <textarea id="note-bas" spellcheck="true" placeholder="Anotaciones rápidas o textos frecuentes..."></textarea>
+        </div>
+        <div class="note-alert">
+            <b>🛡️ REGLA DE REDACCIÓN:</b> El corrector ortográfico está activo. Revisa las palabras subrayadas en rojo.
+        </div>
+    </section>
+
+    <section id="tool-soporte" class="tool-container">
+        <div class="card">
+            <h2 onclick="toggleTheme()" title="Cambiar a Modo Claro/Oscuro">Directorio Culqi ✅</h2>
+            <div class="cismo-label">COMPAÑIA INCUBADORA DE SOLUCIONES MOVILES S.A. - CISMO S.A.</div>
+            <div class="info-grid" style="margin-top: 5px;">
+                <div class="info-item">
+                    <span class="label-mini">WhatsApp Culqi</span>
+                    <b style="color:var(--success)">946 365 851</b>
+                </div>
+                <div class="info-item">
+                    <span class="label-mini">Telemarketing</span>
+                    <b style="color:var(--text)">01 2002440</b>
+                </div>
+            </div>
+            <div class="info-item">
+                <span class="label-mini">Horario Telemarketing</span>
+                <span style="font-weight: 500; font-size:0.75rem;">LUN-VIE: 10:15 - 17:00 | SAB: 09:00 - 14:00</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="border-color: var(--warning)">Información Operativa</h2>
+            
+            <div class="note-alert" style="margin-bottom: 8px;">
+                <span class="label-mini" style="color: var(--accent); margin-bottom: 2px;">KAM</span>
+                Queremos informarte que tienes un gerente de cuentas, le brindo el numero de contacto para una atención personalizada.
+            </div>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="label-mini">DAE</span>
+                    <b style="font-size: 0.75rem;">VISA Y MASTERCARD</b>
+                </div>
+                <div class="info-item">
+                    <span class="label-mini">Factura</span>
+                    <b style="font-size: 0.75rem;">Amex, Diners, P.E y QR</b>
+                </div>
+            </div>
+
+            <div class="info-item" style="text-align: left; margin-top: 8px;">
+                <span class="label-mini">Códigos de Transacción</span>
+                <ul style="padding-left: 20px; margin-top: 5px; font-size: 0.75rem; color: var(--text-dim); line-height: 1.5;">
+                    <li><b>f002</b> transacciones</li>
+                    <li><b>f004</b> ventas</li>
+                    <li><b>f007</b> membresia</li>
+                    <li><b>f005</b> contometros</li>
+                    <li><b>f001</b> DAE</li>
+                </ul>
+            </div>
+
+            <div class="info-grid" style="margin-top: 8px;">
+                <div class="info-item" style="text-align: left;">
+                    <span class="label-mini">RED POS</span>
+                    <ul style="padding-left: 15px; margin-top: 5px; font-size: 0.7rem; color: var(--text-dim); line-height: 1.5;">
+                        <li><b>CARTERIZADO:</b><br>Lima 12H / Prov 24H</li>
+                        <li style="margin-top: 6px;"><b>NO CARTERIZADO:</b><br>Lima 24H / Prov 48H</li>
+                    </ul>
+                </div>
+                <div class="info-item" style="text-align: left;">
+                    <span class="label-mini">Logística Contometros</span>
+                    <ul style="padding-left: 15px; margin-top: 5px; font-size: 0.7rem; color: var(--text-dim); line-height: 1.5;">
+                        <li><b>Lima:</b> 3-5 días H</li>
+                        <li><b>Prov:</b> 5-8 días H</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="info-grid" style="margin-top: 8px;">
+                <div class="info-item">
+                    <span class="label-mini">Movistar</span>
+                    <span style="font-family: monospace; font-size: 0.75rem; color: var(--text); font-weight: bold;">VD_LBB_CULQI</span>
+                </div>
+                <div class="info-item">
+                    <span class="label-mini">Claro</span>
+                    <span style="font-family: monospace; font-size: 0.75rem; color: var(--text); font-weight: bold;">VD_LBX_CULQI</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 style="border-color: var(--success)">Tiempos de Respuesta</h2>
+            <table class="sla-table">
+                <tr><td>Consultas</td><td style="text-align:right; font-weight:bold; color:var(--success)">24 hrs hábiles</td></tr>
+                <tr><td>Solicitudes</td><td style="text-align:right; font-weight:bold; color:var(--success)">48 hrs hábiles</td></tr>
+                <tr><td>Incidente Técnico</td><td style="text-align:right; font-weight:bold; color:var(--success)">48 hrs hábiles</td></tr>
+                <tr><td>Reclamos</td><td style="text-align:right; font-weight:bold; color:var(--success)">72 hrs hábiles</td></tr>
+            </table>
+        </div>
+        <div class="card">
+            <h2>Protocolos de Validación</h2>
+            <div class="val-tabs">
+                <button id="t1" class="tab-btn active" onclick="showVal(1)">Nivel 1</button>
+                <button id="t2" class="tab-btn" onclick="showVal(2)">Nivel 2</button>
+                <button id="t3" class="tab-btn" onclick="showVal(3)">Excepciones</button>
+            </div>
+            <div id="v1" class="val-content active">
+                <div style="color: var(--accent); font-weight: bold; margin-bottom: 8px;">CAMBIO CONFIGURACIÓN COMERCIO</div>
+                <div class="step"><b>Razón Social</b> (Si tiene +1 ID, pedir Nombre Comercial).</div>
+                <div class="step"><b>RUC / DNI</b>.</div>
+                <div class="step">Foto selfie con y del <b>DNI</b>.</div>
+                <div class="step">Nombre del <b>Banco</b> (Abonos).</div>
+                <div class="step"><b>Filtro:</b> ¿Fecha y monto de última venta o abono?</div>
+            </div>
+            <div id="v2" class="val-content">
+                <div style="color: var(--accent); font-weight: bold; margin-bottom: 8px;">VALIDACIÓN ESTÁNDAR</div>
+                <div class="step"><b>Razón Social</b> (Nombre comercial solo si tiene +1 ID).</div>
+                <div class="step"><b>RUC / DNI</b>.</div>
+                <div class="step"><b>Correo Electrónico</b> (Admin Panel o Usuarios CulqiPanel).</div>
+            </div>
+            <div id="v3" class="val-content">
+                <div style="color: var(--success); font-weight: bold; margin-bottom: 8px;">CASOS QUE NO APLICAN VALIDACIÓN</div>
+                <div class="step">Seguimiento de ticket.</div>
+                <div class="step">Incidencias técnicas.</div>
+                <div class="step">Capacitaciones / Tipificaciones diversas.</div>
+            </div>
+            <div class="note-alert" style="border-left-color: var(--danger); background: rgba(255,23,68,0.08); color: var(--danger)">
+                <b>⚠️ REGLA DE ORO:</b> Si el comercio no recuerda alguna información, solicitar <b>FOTO SELFIE</b>.
+            </div>
+        </div>
+    </section>
+
+    <section id="tool-tipificador" class="tool-container">
+        <div class="card">
+            <h2 onclick="toggleTheme()" title="Cambiar a Modo Claro/Oscuro">Tipificación Rápida ✅</h2>
+            <div class="cismo-label">Copiado con un solo click</div>
+
+            <div class="category-title">🔍 Consultas</div>
+            <div class="grid-buttons">
+                <button class="btn-tip cat-consulta" onclick="copyTip('Comercio consulta por sus abonos. Se brinda información detallada según sistema.')">Abonos <span>📋</span></button>
+                <button class="btn-tip cat-consulta" onclick="copyTip('Comercio consulta por sus transacciones. Se valida estado en plataforma.')">Transacciones <span>📋</span></button>
+                <button class="btn-tip cat-consulta" onclick="copyTip('Comercio consulta por su ticket. Se brinda estado actual del requerimiento.')">Estado Ticket <span>📋</span></button>
+            </div>
+
+            <div class="category-title">📥 Solicitudes</div>
+            <div class="grid-buttons">
+                <button class="btn-tip cat-solicitud" onclick="copyTip('Comercio solicita contómetros. Se deriva al área encargada para gestión de compra.')">Contómetros <span>📋</span></button>
+                <button class="btn-tip cat-solicitud" onclick="copyTip('Comercio solicita visita técnica. Se genera reporte por falla de terminal.')">Visita Técnica <span>📋</span></button>
+                <button class="btn-tip cat-solicitud" onclick="copyTip('Comercio solicita comprobante. Se explica pasos para descarga desde portal.')">Comprobante <span>📋</span></button>
+            </div>
+
+            <div class="category-title">⚠️ Reclamos / Incidencias</div>
+            <div class="grid-buttons">
+                <button class="btn-tip cat-reclamo" onclick="copyTip('Comercio reclama por comisión. Se procede a explicar el desglose de tasas vigentes.')">Comisión <span>📋</span></button>
+                <button class="btn-tip cat-incidencia" onclick="copyTip('Comercio corta llamada de forma imprevista. Se finaliza gestión.')">Corta Llamada <span>📋</span></button>
+                <button class="btn-tip cat-incidencia" onclick="copyTip('Se libera llamada de comercio por no responder al contacto (Llamada silenciosa).')">No Responde <span>📋</span></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="tool-calculadora" class="tool-container active">
+        <div class="card">
+            <h2 onclick="toggleTheme()" title="Cambiar a Modo Claro/Oscuro">Calculadora de Comisión ✅</h2>
+            
+            <div class="f-row">
+                <div class="f-col">
+                    <label>Monto Base (S/)</label>
+                    <input type="number" id="monto" placeholder="Ej: 1000" oninput="calcular()">
+                </div>
+
+                <div class="f-col">
+                    <label>Porcentaje</label>
+                    <select id="comisionSel" onchange="toggleOtro()">
+                        <option value="3.44">3.44%</option>
+                        <option value="3.99">3.99%</option>
+                        <option value="otro">Otro (Personalizado)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="otroGrupo" class="f-col hidden">
+                <label>Ingrese el %</label>
+                <input type="number" id="otroValor" placeholder="Ej: 5" oninput="calcular()">
+            </div>
+
+            <div class="results-box">
+                <div class="result-item">
+                    <span class="f-label">Comisión:</span>
+                    <span class="val-desc" id="resComision">S/ 0.00</span>
+                </div>
+                <div class="result-item">
+                    <span class="f-label">IGV (18% sobre com.):</span>
+                    <span class="val-desc" id="resIgv">S/ 0.00</span>
+                </div>
+                <div class="result-item">
+                    <span class="f-label">Total Descontado:</span>
+                    <span class="val-desc" style="color:var(--danger)" id="resDescuento">- S/ 0.00</span>
+                </div>
+                <div class="result-item" style="border-top: 1px dashed var(--border); padding-top: 12px; margin-top: 5px;">
+                    <span class="f-label">Monto que sobra:</span>
+                    <span class="val-total" id="resSobra">S/ 0.00</span>
+                </div>
+            </div>
+
+            <div class="speech-container">
+                <label style="margin-bottom: 8px; display: block; color: var(--accent);">Explicación Detallada</label>
+                <div id="speechText" class="speech-text" onclick="copiarSpeech()">Ingrese un monto y porcentaje para generar la explicación...</div>
+            </div>
+
+            <button class="btn-main" onclick="copiarSpeech()" style="background-color: rgb(0, 230, 118); color: black;">📋 Copiar Explicación</button>
+        </div>
+    </section>
+
+    <script>
+        // --- LÓGICA DE NAVEGACIÓN ---
+        function switchTool(toolId, btn) {
+            document.querySelectorAll('.tool-container').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.bubble').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById('tool-' + toolId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // --- LÓGICA TEMA ---
+        function toggleTheme() { 
+            document.body.classList.toggle('light-mode'); 
+            const isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem('master-suite-theme', isLight ? 'light' : 'dark');
+        }
+        if (localStorage.getItem('master-suite-theme') === 'light') document.body.classList.add('light-mode');
+
+        // --- LÓGICA NOTAS ---
+        function copyNote(type) {
+            const text = document.getElementById('note-' + type);
+            if (!text.value) return;
+            text.select();
+            document.execCommand('copy');
+            showToast('¡Nota copiada!');
+        }
+        
+        function clearNote(type) {
+            if(confirm('¿Estás seguro de borrar este bloque?')) {
+                document.getElementById('note-' + type).value = '';
+            }
+        }
+
+        // --- LÓGICA SOPORTE ---
+        function showVal(num) {
+            document.querySelectorAll('.val-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('v' + num).classList.add('active');
+            document.getElementById('t' + num).classList.add('active');
+        }
+
+        // --- LÓGICA TIPIFICADOR ---
+        function copyTip(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Tipificación copiada');
+                const btn = event.currentTarget;
+                const originalBorder = btn.style.borderColor;
+                btn.style.borderColor = 'var(--success)';
+                setTimeout(() => { btn.style.borderColor = originalBorder; }, 1000);
+            });
+        }
+
+        // --- LÓGICA CALCULADORA ---
+        function toggleOtro() {
+            const sel = document.getElementById('comisionSel').value;
+            const otroDiv = document.getElementById('otroGrupo');
+            if (sel === 'otro') {
+                otroDiv.classList.remove('hidden');
+                document.getElementById('otroValor').focus();
+            } else {
+                otroDiv.classList.add('hidden');
+            }
+            calcular();
+        }
+
+        function calcular() {
+            const monto = parseFloat(document.getElementById('monto').value) || 0;
+            const sel = document.getElementById('comisionSel').value;
+            let porc = 0;
+
+            if (sel === 'otro') {
+                porc = parseFloat(document.getElementById('otroValor').value) || 0;
+            } else {
+                porc = parseFloat(sel);
+            }
+
+            const comision = monto * (porc / 100);
+            const igv = comision * 0.18;
+            const totalDescuento = comision + igv;
+            const sobra = monto - totalDescuento;
+
+            document.getElementById('resComision').innerText = 'S/ ' + comision.toFixed(2);
+            document.getElementById('resIgv').innerText = 'S/ ' + igv.toFixed(2);
+            document.getElementById('resDescuento').innerText = '- S/ ' + totalDescuento.toFixed(2);
+            document.getElementById('resSobra').innerText = 'S/ ' + sobra.toFixed(2);
+
+            generarSpeech(monto, porc, comision, igv, totalDescuento, sobra);
+        }
+
+        function generarSpeech(m, p, c, i, td, s) {
+            const caja = document.getElementById('speechText');
+            if (m <= 0 || p <= 0) {
+                caja.innerText = "Ingrese un monto y porcentaje para generar la explicación...";
+                return;
+            }
+
+            const m_f = m.toFixed(2);
+            const p_f = (p / 100).toFixed(4);
+            const c_f = c.toFixed(2);
+            const i_f = i.toFixed(2);
+            const td_f = td.toFixed(2);
+            const s_f = s.toFixed(2);
+
+            caja.innerHTML = `
+                Estimado, le explico cómo realizar este cálculo paso a paso en su teléfono: <br><br>
+                
+                1. Primero, tome su monto de <strong>S/ ${m_f}</strong> y <strong>multiplíquelo</strong> por <strong>${p_f}</strong> (que representa el ${p}%). Esto le da una comisión de <span class="highlight">S/ ${c_f}</span>.<br><br>
+                
+                2. Luego, a ese resultado de S/ ${c_f}, lo <strong>multiplicamos</strong> por <strong>0.18</strong> para obtener el IGV, lo cual sale <span class="highlight">S/ ${i_f}</span>.<br><br>
+                
+                3. Ahora, <strong>sumamos</strong> ambos valores (S/ ${c_f} + S/ ${i_f}) y obtenemos el descuento total de <span class="highlight">S/ ${td_f}</span>.<br><br>
+                
+                4. Finalmente, a su monto inicial de S/ ${m_f} le <strong>restamos</strong> el descuento total de S/ ${td_f}, y el resultado final que usted recibe es <span class="highlight">S/ ${s_f}</span> (aplicando el redondeo de decimales correspondiente).
+            `;
+        }
+
+        function copiarSpeech() {
+            const caja = document.getElementById('speechText');
+            const textToCopy = caja.innerText;
+            
+            if (textToCopy.includes("Ingrese un monto") || textToCopy.includes("Esperando")) return;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast('Explicación copiada');
+            });
+        }
+
+        // --- FEEDBACK GLOBAL ---
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 1500);
+        }
+
+        // Inicializar cálculos al cargar la página
+        calcular();
+    </script>
+</body>
+</html>
